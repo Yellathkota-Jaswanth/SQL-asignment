@@ -1,0 +1,251 @@
+											Assignment
+
+
+EX1 :
+SELECT TITLE FROM MOVIES;
+SELECT DIRECTOR FROM MOVIES;
+SELECT TITLE,DIRECTOR FROM MOVIES;
+SELECT TITLE,YEAR FROM MOVIES;
+SELECT * FROM MOVIES
+
+
+----------------------------------------------------------------------------------------
+
+EX2 :
+SELECT TITLE FROM MOVIES WHERE ID=6;
+SELECT TITLE FROM MOVIES WHERE YEAR BETWEEN 2000 AND 2010
+SELECT TITLE FROM MOVIES WHERE YEAR NOT BETWEEN 2000 AND 2010
+SELECT TITLE FROM MOVIES WHERE ID BETWEEN 1 AND 5;
+SELECT TITLE FROM MOVIES WHERE ID IN(1,2,3,4,5);
+
+
+
+
+-----------------------------------------------------------------------------------------
+
+
+EX3:
+
+SELECT * FROM MOVIES WHERE TITLE LIKE"%Toy%";
+SELECT * FROM MOVIES WHERE DIRECTOR LIKE"John Lasseter";
+SELECT * FROM MOVIES WHERE DIRECTOR ="John Lasseter";
+SELECT * FROM MOVIES WHERE DIRECTOR LIKE"%John Lasseter%"
+SELECT * FROM MOVIES WHERE DIRECTOR IN("John Lasseter")
+SELECT * FROM MOVIES WHERE DIRECTOR NOT LIKE"John Lasseter";
+SELECT * FROM MOVIES WHERE DIRECTOR !="John Lasseter";
+SELECT * FROM MOVIES WHERE DIRECTOR NOT LIKE"%John Lasseter%"
+SELECT * FROM MOVIES WHERE DIRECTOR NOT IN("John Lasseter")
+SELECT * FROM MOVIES WHERE TITLE LIKE"%WALL-%";
+
+
+
+-------------------------------------------------------------------------------------------
+
+
+
+EX4:
+SELECT DISTINCT DIRECTOR FROM MOVIES ORDER BY DIRECTOR ASC;
+SELECT * FROM MOVIES ORDER BY YEAR DESC LIMIT 4;
+SELECT * FROM MOVIES ORDER BY TITLE ASC LIMIT 5;
+SELECT * FROM MOVIES ORDER BY TITLE ASC LIMIT 5 OFFSET 5;
+
+
+-------------------------------------------------------------------------------------------
+
+
+
+
+EX5:
+
+SELECT city, population FROM north_american_cities WHERE country = "Canada";
+SELECT city, latitude FROM north_american_cities WHERE country = "United States" ORDER BY latitude DESC;
+SELECT city, longitude FROM north_american_cities WHERE longitude < -87.629798 ORDER BY longitude ASC;
+SELECT city, population FROM north_american_cities WHERE country LIKE "Mexico" ORDER BY population DESC LIMIT 2;
+SELECT city, population FROM north_american_cities WHERE country LIKE "United States" ORDER BY population DESC LIMIT 2 OFFSET 2;
+
+
+
+--------------------------------------------------------------------------------------------
+
+
+
+EX6:
+
+
+SELECT Domestic_sales,International_sales FROM MOVIES
+INNER JOIN BOXOFFICE ON MOVIES.Id=BOXOFFICE.Movie_id;
+
+SELECT TITLE,Domestic_sales,International_sales FROM MOVIES
+INNER JOIN BOXOFFICE ON MOVIES.Id=BOXOFFICE.Movie_id
+WHERE International_sales>Domestic_sales;
+
+SELECT TITLE,RATING FROM MOVIES
+INNER JOIN BOXOFFICE ON MOVIES.Id=BOXOFFICE.Movie_id
+ORDER BY RATING DESC;
+
+
+
+
+-------------------------------------------------------------------------------------------
+
+
+EX7:
+
+
+SELECT * FROM employees LEFT JOIN Buildings 
+ON EMPLOYEES.Building =Buildings.Building_name
+
+SELECT DISTINCT Building from employees
+SELECT * FROM Buildings;
+SELECT DISTINCT Building_name,Role FROM Buildings LEFT JOIN  employees
+ON EMPLOYEES.Building =Buildings.Building_name
+
+
+
+
+--------------------------------------------------------------------------------------------
+
+
+
+Ex8:
+
+SELECT Name,role from Employees where building is null;
+
+SELECT DISTINCT Building_name,Role FROM Buildings LEFT JOIN  employees
+ON EMPLOYEES.Building =Buildings.Building_name
+where EMPLOYEES.Building is null;
+
+
+
+
+---------------------------------------------------------------------------------------------
+
+
+
+
+Ex9:
+SELECT Title,(Domestic_sales+International_sales)/1000000 AS Sales
+FROM MOVIES
+INNER JOIN BOXOFFICE
+ON MOVIES.Id=BOXOFFICE.Movie_id
+
+SELECT Title,(Rating*10) AS Rating_Percent
+FROM MOVIES
+INNER JOIN BOXOFFICE
+ON MOVIES.Id=BOXOFFICE.Movie_id
+
+SELECT * FROM MOVIES WHERE YEAR%2=0;
+
+
+---------------------------------------------------------------------------------------------
+
+
+
+Ex10:
+
+SELECT MAX(Years_employed) FROM employees;
+SELECT ROLE,AVG(	Years_employed) FROM EMPLOYEES GROUP BY ROLE
+SELECT BUILDING,SUM(Years_employed) FROM EMPLOYEES GROUP BY BUILDING
+
+
+-----------------------------------------------------------------------------------------------
+
+
+
+Ex11:
+
+SELECT role, COUNT(*) as Number_of_artists
+FROM employees
+WHERE role = "Artist";
+
+SELECT role, COUNT(*)
+FROM employees
+GROUP BY role;
+
+SELECT role, SUM(years_employed)
+FROM employees
+GROUP BY role
+HAVING role = "Engineer";
+
+
+
+---------------------------------------------------------------------------------------------------
+
+
+
+Ex12:
+
+
+SELECT director, COUNT(id) as Num_movies_directed
+FROM movies
+GROUP BY director;
+
+SELECT director, SUM(domestic_sales + international_sales) as Cumulative_sales
+FROM movies
+    INNER JOIN boxoffice
+        ON movies.id = boxoffice.movie_id
+GROUP BY director;
+
+
+-----------------------------------------------------------------------------------------------
+
+
+Ex13:
+INSERT INTO MOVIES (TITLE,DIRECTOR) VALUES("Toy Story 4","Pradeep")
+INSERT INTO BOXOFFICE (Movie_id,Rating,Domestic_sales,International_sales) VALUES(15,8.7,340000000,270000000)
+
+
+
+
+------------------------------------------------------------------------------------------------
+
+
+Ex14:
+UPDATE Movies SET Director="John Lasseter" WHERE TITLE="A Bug's Life";
+UPDATE MOVIES SET YEAR=1999 WHERE TITLE="Toy Story 2";
+UPDATE MOVIES SET DIRECTOR="Lee Unkrich",TITLE="Toy Story 3" WHERE TITLE="Toy Story 8";
+
+
+
+
+-------------------------------------------------------------------------------------------------
+
+
+EX15:
+DELETE FROM MOVIES WHERE YEAR <2005
+DELETE FROM MOVIES WHERE DIRECTOR="Andrew Stanton"
+
+
+
+
+-------------------------------------------------------------------------------------------------
+
+
+
+EX16:
+CREATE TABLE database(name varchar(10),version float,download_count int);
+
+
+
+
+-------------------------------------------------------------------------------------------------
+
+
+Ex17:
+
+ALTER TABLE MOVIES
+ADD COLUMN Aspect_ratio FLOAT;
+
+ALTER TABLE MOVIES
+ADD COLUMN LANGUAGE TEXT
+DEFAULT "English";
+
+
+
+-------------------------------------------------------------------------------------------------
+
+
+Ex18:
+DROP TABLE movies;
+DROP TABLE BOXOFFICE;
+
